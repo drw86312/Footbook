@@ -22,7 +22,6 @@
     [super viewDidLoad];
 
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
-
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"PersonCache"];
     self.fetchedResultsController.delegate = self;
     [self.fetchedResultsController performFetch:nil];
@@ -73,6 +72,14 @@
              NSLog(@"%@", set);
             }
      }];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    Person *person = [self.fetchedResultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow];
+    DetailViewController *destinationVC = segue.destinationViewController;
+    destinationVC.detailItem = person;
+    destinationVC.title = person.name;
 }
 
 #pragma mark - Tableview methods

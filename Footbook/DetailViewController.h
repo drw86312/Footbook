@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Person.h"
+#import "Foot.h"
 
 @interface DetailViewController : UIViewController
 
-@property (strong, nonatomic) id detailItem;
+@property (strong, nonatomic) Person *detailItem;
 
-@property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
+
 @end
