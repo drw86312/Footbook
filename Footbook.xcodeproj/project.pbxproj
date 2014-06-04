@@ -25,6 +25,9 @@
 		0E0C36F9193F97EC00BF0592 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0C36D4193F97EC00BF0592 /* CoreData.framework */; };
 		0E0C3701193F97EC00BF0592 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0E0C36FF193F97EC00BF0592 /* InfoPlist.strings */; };
 		0E0C3703193F97EC00BF0592 /* FootbookTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C3702193F97EC00BF0592 /* FootbookTests.m */; };
+		0E0C370E193F9D3700BF0592 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C370D193F9D3700BF0592 /* Person.m */; };
+		0E0C3711193F9D3800BF0592 /* Foot.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C3710193F9D3800BF0592 /* Foot.m */; };
+		0E0C3714193FB46700BF0592 /* FootTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0C3713193FB46700BF0592 /* FootTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +64,12 @@
 		0E0C36FE193F97EC00BF0592 /* FootbookTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FootbookTests-Info.plist"; sourceTree = "<group>"; };
 		0E0C3700193F97EC00BF0592 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0E0C3702193F97EC00BF0592 /* FootbookTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FootbookTests.m; sourceTree = "<group>"; };
+		0E0C370C193F9D3700BF0592 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
+		0E0C370D193F9D3700BF0592 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
+		0E0C370F193F9D3800BF0592 /* Foot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Foot.h; sourceTree = "<group>"; };
+		0E0C3710193F9D3800BF0592 /* Foot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Foot.m; sourceTree = "<group>"; };
+		0E0C3712193FB46700BF0592 /* FootTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FootTableViewCell.h; sourceTree = "<group>"; };
+		0E0C3713193FB46700BF0592 /* FootTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FootTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,10 +137,16 @@
 				0E0C36E2193F97EC00BF0592 /* Main.storyboard */,
 				0E0C36E8193F97EC00BF0592 /* MasterViewController.h */,
 				0E0C36E9193F97EC00BF0592 /* MasterViewController.m */,
+				0E0C3712193FB46700BF0592 /* FootTableViewCell.h */,
+				0E0C3713193FB46700BF0592 /* FootTableViewCell.m */,
 				0E0C36EB193F97EC00BF0592 /* DetailViewController.h */,
 				0E0C36EC193F97EC00BF0592 /* DetailViewController.m */,
-				0E0C36EE193F97EC00BF0592 /* Images.xcassets */,
+				0E0C370F193F9D3800BF0592 /* Foot.h */,
+				0E0C3710193F9D3800BF0592 /* Foot.m */,
+				0E0C370C193F9D3700BF0592 /* Person.h */,
+				0E0C370D193F9D3700BF0592 /* Person.m */,
 				0E0C36E5193F97EC00BF0592 /* Footbook.xcdatamodeld */,
+				0E0C36EE193F97EC00BF0592 /* Images.xcassets */,
 				0E0C36D7193F97EC00BF0592 /* Supporting Files */,
 			);
 			path = Footbook;
@@ -263,8 +278,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E0C370E193F9D3700BF0592 /* Person.m in Sources */,
+				0E0C3714193FB46700BF0592 /* FootTableViewCell.m in Sources */,
 				0E0C36ED193F97EC00BF0592 /* DetailViewController.m in Sources */,
 				0E0C36EA193F97EC00BF0592 /* MasterViewController.m in Sources */,
+				0E0C3711193F9D3800BF0592 /* Foot.m in Sources */,
 				0E0C36E1193F97EC00BF0592 /* AppDelegate.m in Sources */,
 				0E0C36E7193F97EC00BF0592 /* Footbook.xcdatamodeld in Sources */,
 				0E0C36DD193F97EC00BF0592 /* main.m in Sources */,
