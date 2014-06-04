@@ -7,11 +7,13 @@
 //
 
 #import "Person.h"
+#import "Foot.h"
 
 
 @implementation Person
 
 @dynamic name;
+@dynamic profilepic;
 @dynamic feet;
 
 @end

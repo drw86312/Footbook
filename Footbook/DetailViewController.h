@@ -13,6 +13,6 @@
 @interface DetailViewController : UIViewController
 
 @property (strong, nonatomic) Person *detailItem;
-
+@property NSInteger numofFriends;
 
 @end

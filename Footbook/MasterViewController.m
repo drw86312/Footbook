@@ -7,8 +7,9 @@
 @interface MasterViewController ()
 
 @property NSString *hairiness;
-@property NSNumber* size;
-@property NSNumber* stench;
+@property NSNumber *size;
+@property NSNumber *stench;
+@property NSInteger friends;
 
 @end
 
@@ -26,7 +27,12 @@
     self.fetchedResultsController.delegate = self;
     [self.fetchedResultsController performFetch:nil];
 
-    if ([self.managedObjectContext registeredObjects].count == 0) {
+
+    self.friends = [self.managedObjectContext registeredObjects].count;
+    
+    NSLog(@"%ld", (long)self.friends);
+
+    if (self.friends == 0) {
     [self getFriends];
     }
 }
@@ -48,8 +54,6 @@
              person.name = namefromJSON;
              [self createFootProperties];
 
-             NSLog(@"%@", person.name);
-
              int feet = arc4random() % 50;
              int counter = 0;
              NSMutableSet *mutableSet = [[NSMutableSet alloc] init];
@@ -69,16 +73,19 @@
              NSSet *set = [NSSet setWithSet:mutableSet];
              [person addFeet:set];
              [self.managedObjectContext save:nil];
-             NSLog(@"%@", set);
             }
+         self.friends = [self.managedObjectContext registeredObjects].count;
+         NSLog(@"%ld", (long)self.friends);
      }];
 }
+
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     Person *person = [self.fetchedResultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow];
     DetailViewController *destinationVC = segue.destinationViewController;
     destinationVC.detailItem = person;
+    destinationVC.numofFriends = self.friends;
     destinationVC.title = person.name;
 }
 

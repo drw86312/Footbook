@@ -202,6 +202,7 @@
                         <outlet property="hairinessLabel" destination="lHk-WE-jpi" id="k1L-PO-0gG"/>
                         <outlet property="nameLabel" destination="KxY-RZ-FlY" id="D0D-xu-PyN"/>
                         <outlet property="numFeetLabel" destination="GhY-Ad-ML8" id="et8-qz-HaI"/>
+                        <outlet property="profileImage" destination="ERD-bh-9Qj" id="mdR-hI-s1f"/>
                         <outlet property="stenchLevelLabel" destination="fSy-9f-MaP" id="q3s-N2-FAa"/>
                     </connections>
                 </viewController>
