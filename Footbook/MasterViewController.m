@@ -10,6 +10,8 @@
 @property NSNumber *size;
 @property NSNumber *stench;
 @property NSInteger friends;
+@property NSFetchRequest *request;
+@property NSMutableArray *imageDataArray;
 
 @end
 
@@ -18,19 +20,19 @@
 
 -(void)viewDidLoad
 {
-    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Person"];
+    self.request = [[NSFetchRequest alloc] initWithEntityName:@"Person"];
+    self.imageDataArray = [[NSMutableArray alloc] init];
 
     [super viewDidLoad];
 
-    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
-    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"PersonCache"];
+    [self getFootPics];
+    self.request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:self.request managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"PersonCache"];
     self.fetchedResultsController.delegate = self;
     [self.fetchedResultsController performFetch:nil];
-
-
     self.friends = [self.managedObjectContext registeredObjects].count;
-    
-    NSLog(@"%ld", (long)self.friends);
+
+    [self setFriendsCount];
 
     if (self.friends == 0) {
     [self getFriends];
@@ -74,8 +76,39 @@
              [person addFeet:set];
              [self.managedObjectContext save:nil];
             }
-         self.friends = [self.managedObjectContext registeredObjects].count;
-         NSLog(@"%ld", (long)self.friends);
+         [self setFriendsCount];
+     }];
+}
+
+-(void)getFootPics
+{
+    NSString *feet = @"feet";
+    NSString *foot = @"foot";
+
+    NSString *urlString = [NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=5ad3d2d5952f1e0a4a111e54c686d08e&tags=%@+%@&per_page=100&format=json&nojsoncallback=1",feet, foot];
+
+    NSLog(@"%@", urlString);
+
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
+     {
+         NSDictionary *flickrResults = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&connectionError];
+
+         NSArray *array = [[flickrResults objectForKey:@"photos"] objectForKey:@"photo"];
+
+         for (NSDictionary *dictionary in array) {
+         NSString *farm = [dictionary objectForKey:@"farm"];
+         NSString *server = [dictionary objectForKey:@"server"];
+         NSString *ident = [dictionary objectForKey:@"id"];
+         NSString *secret = [dictionary objectForKey:@"secret"];
+
+         NSString *imageURLString = [NSString stringWithFormat:@"http://farm%@.staticflickr.com/%@/%@_%@_m.jpg",farm, server, ident, secret];
+         NSURL *imageURL = [NSURL URLWithString:imageURLString];
+         NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
+        [self.imageDataArray addObject:imageData];
+         }
      }];
 }
 
@@ -85,8 +118,14 @@
     Person *person = [self.fetchedResultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow];
     DetailViewController *destinationVC = segue.destinationViewController;
     destinationVC.detailItem = person;
-    destinationVC.numofFriends = self.friends;
+    destinationVC.imagesArrayFromSource = self.imageDataArray;
     destinationVC.title = person.name;
+}
+
+-(IBAction)unwindFromDetail:(UIStoryboardSegue *)sender
+{
+    DetailViewController *sourceVC = sender.sourceViewController;
+    self.imageDataArray =  sourceVC.imagesArrayFromSource;
 }
 
 #pragma mark - Tableview methods
@@ -129,6 +168,14 @@
     int stench = arc4random() % 10;
     NSNumber *stench1 = [NSNumber numberWithInt:stench];
     self.stench = stench1;
+}
+
+-(void)setFriendsCount
+{
+    [self.request setEntity:[NSEntityDescription entityForName:@"Person" inManagedObjectContext:self.managedObjectContext]];
+    [self.request setIncludesSubentities:NO];
+    NSUInteger count = [self.managedObjectContext countForFetchRequest:self.request error:nil];
+    self.friends = count;
 }
 
 
