@@ -123,11 +123,6 @@
     destinationVC.title = person.name;
 }
 
--(IBAction)unwindFromDetail:(UIStoryboardSegue *)sender
-{
-    DetailViewController *sourceVC = sender.sourceViewController;
-    self.imageDataArray =  sourceVC.imagesArrayFromSource;
-}
 
 #pragma mark - Tableview methods
 
@@ -143,7 +138,6 @@
     cell.nameLabel.text = person.name;
     cell.numOfFeetLabel.text = @(person.feet.count).description;
     cell.hairinessLabel.text = [[person.feet anyObject] hairiness];
-    cell.stenchLabel.text = [NSString stringWithFormat:@"%@", [[person.feet anyObject] stench]];
     cell.sizeLabel.text = [NSString stringWithFormat:@"%@", [[person.feet anyObject] footsize]];
     UIImage *image = [UIImage imageWithData:person.profilepic];
     UIImage *thumbnail = [self generatePhotoThumbnail:image];
