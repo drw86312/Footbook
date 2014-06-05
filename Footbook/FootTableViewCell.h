@@ -14,5 +14,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *sizeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *stenchLabel;
 @property (weak, nonatomic) IBOutlet UILabel *hairinessLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *cellImageView;
 
 @end
